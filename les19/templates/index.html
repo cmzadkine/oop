@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Taken</title>
+
+</head>
+
+
+<body>
+
+
+<h1>
+Welkom {{ user }}
+</h1>
+
+
+<p>
+Rol: {{ role }}
+</p>
+
+
+<a href="/logout">
+Logout
+</a>
+
+
+
+<h2>
+Nieuwe taak
+</h2>
+
+
+<form method="post" action="/add">
+
+<input name="titel">
+
+<button>
+Toevoegen
+</button>
+
+</form>
+
+
+
+<h2>
+Taken
+</h2>
+
+
+<ul>
+
+{% for t in taken %}
+
+
+<li>
+
+
+{% if t.klaar %}
+
+✅
+
+{% else %}
+
+⬜
+
+{% endif %}
+
+
+
+{{t.titel}}
+
+(
+{{t.owner}}
+)
+
+
+
+{% if not t.klaar %}
+
+<a href="/done/{{loop.index0}}">
+Klaar
+</a>
+
+{% endif %}
+
+
+
+{% if role == "admin" %}
+
+<a href="/delete/{{loop.index0}}">
+Verwijder
+</a>
+
+{% endif %}
+
+
+
+</li>
+
+
+{% endfor %}
+
+</ul>
+
+
+</body>
+
+</html>
